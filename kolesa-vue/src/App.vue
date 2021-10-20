@@ -129,12 +129,18 @@
                     {{ item.title }}
                   </p>
                   <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-                  <button class="item-desc__order">Заказать</button>
+                  <button class="item-desc__order" @click="openModal">
+                    Заказать
+                  </button>
                 </div>
               </div>
             </div>
             <div class="goods" v-if="selected === 'Одежда'">
-              <div class="goods__item" v-for="item in clothes" :key="item">
+              <div
+                class="goods__item"
+                v-for="item in sortedClothes"
+                :key="item"
+              >
                 <div class="goods__img-wrap">
                   <img :src="getImgUrl(item.img)" alt="text" />
                   <div class="new-cloth" v-if="item.isNew">new</div>
@@ -145,12 +151,18 @@
                     {{ item.title }}
                   </p>
                   <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-                  <button class="item-desc__order">Заказать</button>
+                  <button class="item-desc__order" @click="openModal">
+                    Заказать
+                  </button>
                 </div>
               </div>
             </div>
             <div class="goods" v-if="selected === 'Аксессуары'">
-              <div class="goods__item" v-for="item in accessories" :key="item">
+              <div
+                class="goods__item"
+                v-for="item in sortedAccessories"
+                :key="item"
+              >
                 <div class="goods__img-wrap">
                   <img :src="getImgUrl(item.img)" alt="text" />
                   <div class="new-cloth" v-if="item.isNew">new</div>
@@ -161,7 +173,9 @@
                     {{ item.title }}
                   </p>
                   <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-                  <button class="item-desc__order">Заказать</button>
+                  <button class="item-desc__order" @click="openModal">
+                    Заказать
+                  </button>
                 </div>
               </div>
             </div>
@@ -213,14 +227,133 @@
         </div>
       </div>
     </footer>
-    <div class="modal">
+    <div class="modal" v-if="isShowModal" >
       <div class="modal__container">
         <div class="modal__dialog">
-          <button class="modal__close">
+          <button class="modal__close" @click="closeModal">
             <img src="../src/assets/img/close-big.svg" alt="close-modal" />
           </button>
+          <div class="modal__inner">
+            <div class="goods-img-section">
+              <div class="main-img">
+                <img src="../src/assets/img/goods-item.png" alt="Main Image" />
+              </div>
+            </div>
+            <div class="goods-information">
+              <div class="main-info">
+                <h3 class="goods-title">Футболка "Эволюционируй или Сдохни"</h3>
+                <p class="points">220 баллов</p>
+                <div class="order">
+                  <a class="order__btn" href="#">Заказать</a>
+                </div>
+                <div class="client-points">
+                  <div class="money">
+                    <h6>Твой баланс:</h6>
+                    <p>3 945 баллов</p>
+                  </div>
+                  <div class="money-bag"></div>
+                </div>
+              </div>
+              <div class="additional-info">
+                <section class="inner-info">
+                  <h5 class="radio-info">Цвета:</h5>
+                  <div class="radio-wrapper">
+                    <div class="color-container">
+                      <input
+                        id="radio-color-1"
+                        type="radio"
+                        name="radio-color"
+                        value="Синий"
+                        checked
+                      />
+                      <label for="radio-color-1">
+                        <div class="color color__blue"></div>
+                        Синий</label
+                      >
+                    </div>
+
+                    <div class="color-container">
+                      <input
+                        id="radio-color-2"
+                        type="radio"
+                        name="radio-color"
+                        value="Бежевый"
+                        checked
+                      />
+                      <label for="radio-color-2"
+                        ><div class="color color__whitish"></div>
+                        Бежевый</label
+                      >
+                    </div>
+                    <div class="color-container">
+                      <input
+                        id="radio-color-3"
+                        type="radio"
+                        name="radio-color"
+                        value="Серый"
+                        checked
+                      />
+                      <label for="radio-color-3"
+                        ><div class="color color__grey"></div>
+                        Серый</label
+                      >
+                    </div>
+                  </div>
+                </section>
+                <section class="inner-info">
+                  <h5 class="radio-info">Размер:</h5>
+                  <div class="radio-wrapper">
+                    <div class="size-container">
+                      <input
+                        id="radio-size-1"
+                        type="radio"
+                        name="radio-size"
+                        value="S"
+                        checked
+                      />
+                      <label for="radio-size-1">S</label>
+                    </div>
+
+                    <div class="size-container">
+                      <input
+                        id="radio-size-2"
+                        type="radio"
+                        name="radio-size"
+                        value="M"
+                      />
+                      <label for="radio-size-2">M</label>
+                    </div>
+
+                    <div class="size-container">
+                      <input
+                        id="radio-size-3"
+                        type="radio"
+                        name="radio-size"
+                        value="L"
+                      />
+                      <label for="radio-size-3">L</label>
+                    </div>
+                  </div>
+                </section>
+                <section class="inner-info">
+                  <h5 class="non-radio-info">Детали:</h5>
+                  <div class="details-info">
+                    Брендированная толстовка от Qazaq Republic. Материал: Хлопок
+                    80%, Вискоза 20%
+                  </div>
+                </section>
+                <section class="inner-info">
+                  <h5 class="non-radio-info">Как выбрать размер:</h5>
+                  <div class="details-info">
+                    Написать дяде Рику для уточнения.
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="overlay" @click="closeModal"></div>
     </div>
   </div>
 </template>
@@ -338,7 +471,8 @@ export default {
           size: true,
         },
       ],
-      selected: null,
+      selected: 'Все товары',
+      isShowModal: false,
     };
   },
   computed: {
@@ -351,7 +485,7 @@ export default {
       return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
     },
     sortedAccessories() {
-      return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
+      return [...this.accessories].sort((x, y) => y.isNew - x.isNew);
     },
   },
   methods: {
@@ -359,8 +493,11 @@ export default {
       // eslint-disable-next-line global-require,import/no-dynamic-require,import/extensions
       return require(`./assets/img/${item}`);
     },
-    showClothes() {
-
+    openModal() {
+      this.isShowModal = true;
+    },
+    closeModal() {
+      this.isShowModal = false;
     },
   },
 };
