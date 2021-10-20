@@ -350,6 +350,9 @@ export default {
     sortedClothes() {
       return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
     },
+    sortedAccessories() {
+      return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
+    },
   },
   methods: {
     getImgUrl(item) {
