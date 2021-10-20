@@ -88,6 +88,7 @@
                   value="Все товары"
                   data-key="all"
                   checked
+                  v-model="selected"
                 />
                 <label for="item-radio-1">Все товары</label>
               </div>
@@ -99,6 +100,7 @@
                   name="radio-item"
                   value="Одежда"
                   data-key="clothes"
+                  v-model="selected"
                 />
                 <label for="item-radio-2">Одежда</label>
               </div>
@@ -110,12 +112,45 @@
                   name="radio-item"
                   value="Аксессуары"
                   data-key="accessories"
+                  v-model="selected"
                 />
                 <label for="item-radio-3">Аксессуары</label>
               </div>
             </div>
-            <div class="goods">
+            <div class="goods" v-if="selected === 'Все товары'">
               <div class="goods__item" v-for="item in allItems" :key="item">
+                <div class="goods__img-wrap">
+                  <img :src="getImgUrl(item.img)" alt="text" />
+                  <div class="new-cloth" v-if="item.isNew">new</div>
+                </div>
+                <div class="item-desc">
+                  <p class="item-desc__cost">{{ item.price }} баллов</p>
+                  <p class="item-desc__name">
+                    {{ item.title }}
+                  </p>
+                  <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
+                  <button class="item-desc__order">Заказать</button>
+                </div>
+              </div>
+            </div>
+            <div class="goods" v-if="selected === 'Одежда'">
+              <div class="goods__item" v-for="item in clothes" :key="item">
+                <div class="goods__img-wrap">
+                  <img :src="getImgUrl(item.img)" alt="text" />
+                  <div class="new-cloth" v-if="item.isNew">new</div>
+                </div>
+                <div class="item-desc">
+                  <p class="item-desc__cost">{{ item.price }} баллов</p>
+                  <p class="item-desc__name">
+                    {{ item.title }}
+                  </p>
+                  <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
+                  <button class="item-desc__order">Заказать</button>
+                </div>
+              </div>
+            </div>
+            <div class="goods" v-if="selected === 'Аксессуары'">
+              <div class="goods__item" v-for="item in accessories" :key="item">
                 <div class="goods__img-wrap">
                   <img :src="getImgUrl(item.img)" alt="text" />
                   <div class="new-cloth" v-if="item.isNew">new</div>
@@ -303,6 +338,7 @@ export default {
           size: true,
         },
       ],
+      selected: null,
     };
   },
   computed: {
@@ -311,11 +347,17 @@ export default {
         (x, y) => y.isNew - x.isNew,
       );
     },
+    sortedClothes() {
+      return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
+    },
   },
   methods: {
     getImgUrl(item) {
       // eslint-disable-next-line global-require,import/no-dynamic-require,import/extensions
       return require(`./assets/img/${item}`);
+    },
+    showClothes() {
+
     },
   },
 };
