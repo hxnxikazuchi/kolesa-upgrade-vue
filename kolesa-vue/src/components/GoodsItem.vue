@@ -1,101 +1,26 @@
 <template>
-  <div id="app">
-    <header class="header">
-      <div class="header-container container">
-        <div class="header__wrapper">
-          <img
-            class="header__logo"
-            src="../src/assets/img/logo.svg"
-            alt="kolesa-logo"
-          />
-          <div class="header__inner inner">
-            <Search></Search>
-            <User></User>
-          </div>
-        </div>
-      </div>
-    </header>
-    <div class="main-aside-wrapper">
-      <div class="container main-container">
-        <Nav></Nav>
-        <main class="main">
-          <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
-          <HotButtons></HotButtons>
-          <div class="goods-wrapper">
-            <Filters></Filters>
-            <GoodsItem></GoodsItem>
-          </div>
-        </main>
-      </div>
+<div class="goods">
+  <div class="goods__item" v-for="item in allItems" :key="item">
+    <div class="goods__img-wrap">
+      <img :src="getImgUrl(item.img)" alt="text" />
+      <div class="new-cloth" v-if="item.isNew">new</div>
     </div>
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-wrapper">
-          <div class="social-logo">
-            <div class="footer__logo">© Kolesa Group</div>
-            <ul class="footer__social">
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/insta.svg"
-                    alt="insta"
-                    class="footer__img"
-                /></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/youtube.svg"
-                    alt="youtube"
-                    class="footer__img"
-                /></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/vk.svg"
-                    alt="vk"
-                    class="footer__img"
-                /></a>
-              </li>
-            </ul>
-          </div>
-          <div class="footer-contact-us">
-            <p>
-              Есть идеи что улучшить? <br />
-              Не знаешь, с кем решить проблему?
-            </p>
-            <div class="write-us__btn">
-              <a href="#">Написать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <Modal :is-open="isShowModal" @close ='closeModal'></Modal>
+    <div class="item-desc">
+      <p class="item-desc__cost">{{ item.price }} баллов</p>
+      <p class="item-desc__name">
+        {{ item.title }}
+      </p>
+      <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
+      <button class="item-desc__order" @click="openModal">Заказать</button>
+    </div>
   </div>
+</div>
+
 </template>
 
 <script>
-import Modal from './components/Modal.vue';
-import Search from './components/Search.vue';
-import User from './components/User.vue';
-import Nav from './components/Nav.vue';
-import HotButtons from './components/HotButtons.vue';
-import Filters from './components/Filters.vue';
-import GoodsItem from './components/GoodsItem.vue';
-
 export default {
-  name: 'App',
-  components: {
-    Modal,
-    Search,
-    User,
-    Nav,
-    HotButtons,
-    Filters,
-    GoodsItem,
-  },
+  name: 'Goods Item',
   data() {
     return {
       accessories: [
@@ -207,7 +132,6 @@ export default {
         },
       ],
       selected: 'Все товары',
-      isShowModal: false,
     };
   },
   computed: {
@@ -226,18 +150,8 @@ export default {
   methods: {
     getImgUrl(item) {
       // eslint-disable-next-line global-require,import/no-dynamic-require,import/extensions
-      return require(`./assets/img/${item}`);
-    },
-    openModal() {
-      this.isShowModal = true;
-    },
-    closeModal() {
-      this.isShowModal = false;
+      return require(`@/assets/img/${item}`);
     },
   },
 };
 </script>
-
-<style lang="scss">
-@import "./scss/style";
-</style>
