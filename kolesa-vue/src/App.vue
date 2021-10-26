@@ -17,21 +17,7 @@
     </header>
     <div class="main-aside-wrapper">
       <div class="container main-container">
-        <aside class="aside">
-          <nav>
-            <ul class="nav-list">
-              <li><a href="#">Оргсхема</a></li>
-              <li><a href="#">Kolesa Team</a></li>
-              <li class="active"><a href="#">Kolesa Shop</a></li>
-              <li><a href="#">Картина компании</a></li>
-              <li><a href="#">Новости</a></li>
-              <li><a href="#">Education</a></li>
-              <li><a href="#">Guidelines</a></li>
-              <li><a href="#">Библиотека</a></li>
-              <li><a href="#">FAQ</a></li>
-            </ul>
-          </nav>
-        </aside>
+        <Nav></Nav>
         <main class="main">
           <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
           <div class="about-points">
@@ -215,6 +201,7 @@
 import Modal from './components/Modal.vue';
 import Search from './components/Search.vue';
 import User from './components/User.vue';
+import Nav from './components/Nav.vue';
 
 export default {
   name: 'App',
@@ -222,6 +209,7 @@ export default {
     Modal,
     Search,
     User,
+    Nav,
   },
   data() {
     return {
