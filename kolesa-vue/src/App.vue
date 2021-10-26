@@ -22,8 +22,15 @@
           <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
           <HotButtons></HotButtons>
           <div class="goods-wrapper">
-            <Filters></Filters>
-            <GoodsItem></GoodsItem>
+            <Filters
+              v-model="activeKey"
+              :filters="filters"
+            />
+
+            <GoodsItem
+              :items="filteredItem"
+              @openModal="openModal">
+            </GoodsItem>
           </div>
         </main>
       </div>
@@ -165,8 +172,22 @@ export default {
           size: true,
         },
       ],
-      selected: 'Все товары',
+      activeKey: 'all',
       isShowModal: false,
+      filters: [
+        {
+          id: 'all',
+          title: 'Все товары',
+        },
+        {
+          id: 'clothes',
+          title: 'Одежда',
+        },
+        {
+          id: 'acsessories',
+          title: 'Аксессуары',
+        },
+      ],
     };
   },
   computed: {
@@ -181,12 +202,18 @@ export default {
     sortedAccessories() {
       return [...this.accessories].sort((x, y) => y.isNew - x.isNew);
     },
+    filteredItem() {
+      if (this.activeKey === 'clothes') {
+        return this.sortedClothes;
+      }
+
+      if (this.activeKey === 'acsessories') {
+        return this.sortedAccessories;
+      }
+      return this.allItems;
+    },
   },
   methods: {
-    getImgUrl(item) {
-      // eslint-disable-next-line global-require,import/no-dynamic-require,import/extensions
-      return require(`./assets/img/${item}`);
-    },
     openModal() {
       this.isShowModal = true;
     },

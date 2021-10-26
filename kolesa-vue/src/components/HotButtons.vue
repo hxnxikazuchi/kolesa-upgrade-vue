@@ -23,6 +23,6 @@
 
 <script>
 export default {
-  name: 'Hot Buttons',
+  name: 'HotButtons',
 };
 </script>
