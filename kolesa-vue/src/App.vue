@@ -9,8 +9,8 @@
             alt="kolesa-logo"
           />
           <div class="header__inner inner">
-            <search></search>
-            <user></user>
+            <Search></Search>
+            <User></User>
           </div>
         </div>
       </div>
@@ -20,29 +20,7 @@
         <Nav></Nav>
         <main class="main">
           <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
-          <div class="about-points">
-            <a href="#" class="about-points__link about-points--green">
-              <div class="about-points__item">
-                <img src="../src/assets/img/plus.svg" alt="take-points" />
-                Получить баллы
-              </div>
-            </a>
-            <a href="#" class="about-points__link about-points--yellow">
-              <div class="about-points__item">
-                <img
-                  src="../src/assets/img/question.svg"
-                  alt="how-to-get-points"
-                />
-                Как получить баллы
-              </div>
-            </a>
-            <a href="#" class="about-points__link about-points--blue">
-              <div class="about-points__item">
-                <img src="../src/assets/img/present.svg" alt="present-points" />
-                Подарить баллы
-              </div>
-            </a>
-          </div>
+          <HotButtons></HotButtons>
           <div class="goods-wrapper">
             <div class="radio-buttons">
               <div class="radio-item">
@@ -193,7 +171,7 @@
         </div>
       </div>
     </footer>
-    <modal :is-open="isShowModal" @close ='closeModal'></modal>
+    <Modal :is-open="isShowModal" @close ='closeModal'></Modal>
   </div>
 </template>
 
@@ -202,6 +180,7 @@ import Modal from './components/Modal.vue';
 import Search from './components/Search.vue';
 import User from './components/User.vue';
 import Nav from './components/Nav.vue';
+import HotButtons from './components/HotButtons.vue';
 
 export default {
   name: 'App',
@@ -210,6 +189,7 @@ export default {
     Search,
     User,
     Nav,
+    HotButtons,
   },
   data() {
     return {
