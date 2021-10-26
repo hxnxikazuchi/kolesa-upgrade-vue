@@ -9,17 +9,7 @@
             alt="kolesa-logo"
           />
           <div class="header__inner inner">
-            <div class="inner__search">
-              <form class="inner__form" action="#">
-                <button class="inner__btn"></button>
-                <input
-                  type="text"
-                  placeholder="Поиск"
-                  name="search"
-                  class="inner__input"
-                />
-              </form>
-            </div>
+            <search></search>
             <a href="#" class="inner__user user">
               <img
                 src="../src/assets/img/morti.svg"
@@ -233,11 +223,13 @@
 
 <script>
 import Modal from './components/Modal.vue';
+import Search from './components/Search.vue';
 
 export default {
   name: 'App',
   components: {
     Modal,
+    Search,
   },
   data() {
     return {
