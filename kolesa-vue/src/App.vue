@@ -10,17 +10,7 @@
           />
           <div class="header__inner inner">
             <search></search>
-            <a href="#" class="inner__user user">
-              <img
-                src="../src/assets/img/morti.svg"
-                alt="user-photo"
-                class="user__img"
-              />
-              <div class="user__name-points">
-                <p class="user__name">Мортиджан</p>
-                <p class="user__point">300 баллов</p>
-              </div>
-            </a>
+            <user></user>
           </div>
         </div>
       </div>
@@ -224,12 +214,14 @@
 <script>
 import Modal from './components/Modal.vue';
 import Search from './components/Search.vue';
+import User from './components/User.vue';
 
 export default {
   name: 'App',
   components: {
     Modal,
     Search,
+    User,
   },
   data() {
     return {
