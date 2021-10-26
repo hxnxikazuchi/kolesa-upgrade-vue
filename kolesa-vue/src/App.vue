@@ -22,45 +22,7 @@
           <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
           <HotButtons></HotButtons>
           <div class="goods-wrapper">
-            <div class="radio-buttons">
-              <div class="radio-item">
-                <input
-                  class="js__category-button"
-                  type="radio"
-                  id="item-radio-1"
-                  name="radio-item"
-                  value="Все товары"
-                  data-key="all"
-                  checked
-                  v-model="selected"
-                />
-                <label for="item-radio-1">Все товары</label>
-              </div>
-              <div class="radio-item">
-                <input
-                  class="js__category-button"
-                  type="radio"
-                  id="item-radio-2"
-                  name="radio-item"
-                  value="Одежда"
-                  data-key="clothes"
-                  v-model="selected"
-                />
-                <label for="item-radio-2">Одежда</label>
-              </div>
-              <div class="radio-item">
-                <input
-                  class="js__category-button"
-                  type="radio"
-                  id="item-radio-3"
-                  name="radio-item"
-                  value="Аксессуары"
-                  data-key="accessories"
-                  v-model="selected"
-                />
-                <label for="item-radio-3">Аксессуары</label>
-              </div>
-            </div>
+            <Filters></Filters>
             <div class="goods" v-if="selected === 'Все товары'">
               <div class="goods__item" v-for="item in allItems" :key="item">
                 <div class="goods__img-wrap">
@@ -181,6 +143,7 @@ import Search from './components/Search.vue';
 import User from './components/User.vue';
 import Nav from './components/Nav.vue';
 import HotButtons from './components/HotButtons.vue';
+import Filters from './components/Filters.vue';
 
 export default {
   name: 'App',
@@ -190,6 +153,7 @@ export default {
     User,
     Nav,
     HotButtons,
+    Filters,
   },
   data() {
     return {
