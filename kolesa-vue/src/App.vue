@@ -28,50 +28,7 @@
         </main>
       </div>
     </div>
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-wrapper">
-          <div class="social-logo">
-            <div class="footer__logo">© Kolesa Group</div>
-            <ul class="footer__social">
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/insta.svg"
-                    alt="insta"
-                    class="footer__img"
-                /></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/youtube.svg"
-                    alt="youtube"
-                    class="footer__img"
-                /></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/vk.svg"
-                    alt="vk"
-                    class="footer__img"
-                /></a>
-              </li>
-            </ul>
-          </div>
-          <div class="footer-contact-us">
-            <p>
-              Есть идеи что улучшить? <br />
-              Не знаешь, с кем решить проблему?
-            </p>
-            <div class="write-us__btn">
-              <a href="#">Написать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer></Footer>
     <Modal :is-open="isShowModal" @close ='closeModal'></Modal>
   </div>
 </template>
@@ -84,6 +41,7 @@ import Nav from './components/Nav.vue';
 import HotButtons from './components/HotButtons.vue';
 import Filters from './components/Filters.vue';
 import GoodsItem from './components/GoodsItem.vue';
+import Footer from './components/Footer.vue';
 
 export default {
   name: 'App',
@@ -95,6 +53,7 @@ export default {
     HotButtons,
     Filters,
     GoodsItem,
+    Footer,
   },
   data() {
     return {
