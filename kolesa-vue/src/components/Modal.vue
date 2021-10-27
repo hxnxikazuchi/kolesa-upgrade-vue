@@ -8,7 +8,14 @@
         <div class="modal__inner">
           <div class="goods-img-section">
             <div class="main-img">
-              <img :src="getImgUrl(data.img)" alt="Main Image" />
+              <img :src="data.mainImage" alt="Main Image" />
+            </div>
+            <div class="additional-img">
+              <img
+                :src="image" alt="image"
+                v-for="image in data.images"
+                :key="image.id"
+              >
             </div>
           </div>
           <div class="goods-information">
@@ -27,91 +34,43 @@
               </div>
             </div>
             <div class="additional-info">
-              <section class="inner-info">
+              <section class="inner-info" v-if="data.colors">
                 <h5 class="radio-info">Цвета:</h5>
                 <div class="radio-wrapper">
-                  <div class="color-container">
+                  <div class="color-container" v-for="color in data.colors" :key="color.id">
                     <input
-                      id="radio-color-1"
+                      :id="data.id"
                       type="radio"
                       name="radio-color"
                       value="Синий"
-                      checked
+                      :checked="data.id === currentColor"
                     />
                     <label for="radio-color-1">
-                      <div class="color color__blue"></div>
-                      Синий</label
-                    >
-                  </div>
-
-                  <div class="color-container">
-                    <input
-                      id="radio-color-2"
-                      type="radio"
-                      name="radio-color"
-                      value="Бежевый"
-                      checked
-                    />
-                    <label for="radio-color-2"
-                      ><div class="color color__whitish"></div>
-                      Бежевый</label
-                    >
-                  </div>
-                  <div class="color-container">
-                    <input
-                      id="radio-color-3"
-                      type="radio"
-                      name="radio-color"
-                      value="Серый"
-                      checked
-                    />
-                    <label for="radio-color-3"
-                      ><div class="color color__grey"></div>
-                      Серый</label
+                      <div class="color" :style="{background: color.color}"></div>
+                      {{color.label}}</label
                     >
                   </div>
                 </div>
               </section>
-              <section class="inner-info">
+              <section class="inner-info" v-if="data.sizes != 0">
                 <h5 class="radio-info">Размер:</h5>
                 <div class="radio-wrapper">
-                  <div class="size-container">
+                  <div class="size-container" v-for="size in data.sizes" :key="size.id">
                     <input
-                      id="radio-size-1"
+                      :id="data.id"
                       type="radio"
                       name="radio-size"
-                      value="S"
-                      checked
+                      :value="data.id"
+                      :checked="data.id === currentSize"
                     />
-                    <label for="radio-size-1">S</label>
-                  </div>
-
-                  <div class="size-container">
-                    <input
-                      id="radio-size-2"
-                      type="radio"
-                      name="radio-size"
-                      value="M"
-                    />
-                    <label for="radio-size-2">M</label>
-                  </div>
-
-                  <div class="size-container">
-                    <input
-                      id="radio-size-3"
-                      type="radio"
-                      name="radio-size"
-                      value="L"
-                    />
-                    <label for="radio-size-3">L</label>
+                    <label for="radio-size-1">{{size}}</label>
                   </div>
                 </div>
               </section>
               <section class="inner-info">
                 <h5 class="non-radio-info">Детали:</h5>
                 <div class="details-info">
-                  Брендированная толстовка от Qazaq Republic. Материал: Хлопок
-                  80%, Вискоза 20%
+                  {{data.description}}
                 </div>
               </section>
               <section class="inner-info">
@@ -136,6 +95,8 @@ export default {
     isOpen: Boolean,
     data: Object,
     totalScore: Number,
+    currentColor: String,
+    currentSize: String,
   },
   data() {
     return {
@@ -151,7 +112,7 @@ export default {
       return require(`@/assets/img/${item}`);
     },
     order() {
-      this.$emit('order', this.data.price);
+      this.$emit('order', this.data.score);
     },
   },
 };

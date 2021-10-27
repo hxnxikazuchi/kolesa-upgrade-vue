@@ -6,7 +6,7 @@
           <img class="header__logo" src="../src/assets/img/logo.svg" alt="kolesa-logo" />
           <div class="header__inner inner">
             <Search></Search>
-            <User :totalScore="score"></User>
+            <User @getUserInfo="setScore"></User>
           </div>
         </div>
       </div>
@@ -28,7 +28,6 @@
     <Modal
       :data="modalData"
       :is-open="isShowModal"
-      :totalScore="score"
       @close="closeModal"
       @order="setScore"
     >
@@ -37,6 +36,8 @@
 </template>
 
 <script>
+import axios from './axios';
+
 import Modal from './components/Modal.vue';
 import Search from './components/Search.vue';
 import User from './components/User.vue';
@@ -60,7 +61,6 @@ export default {
   },
   data() {
     return {
-      score: 3945,
       modalData: {},
       search: '',
       accessories: [
@@ -187,6 +187,11 @@ export default {
           title: 'Аксессуары',
         },
       ],
+      user: {
+        name: '',
+        score: 0,
+        avatarUrl: '',
+      },
     };
   },
   computed: {
@@ -232,6 +237,18 @@ export default {
     setSearch(e) {
       this.search = e.target.value;
     },
+  },
+  mounted() {
+    axios.get('templates/-_RLsEGjof6i/data')
+      .then((response) => {
+        console.log(response.data);
+        this.clothes = response.data;
+      });
+    axios.get('templates/q3OPxRyEcPvP/data')
+      .then((response) => {
+        console.log(response.data);
+        this.accessories = response.data;
+      });
   },
 };
 </script>

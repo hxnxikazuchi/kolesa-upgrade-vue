@@ -66,11 +66,17 @@
 }
 
 .additional-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 330px;
 
   img {
     margin-right: 8px;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 8px;
   }
 
   img:last-child {
@@ -180,7 +186,7 @@
 
 .main-img {
   width: 100%;
-
+  margin-bottom: 16px;
   img {
     display: block;
     min-width: 330px;
