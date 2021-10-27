@@ -11,8 +11,11 @@
         {{ item.title }}
       </p>
       <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-      <button class="item-desc__order"
-      @click="$emit('openModal', item)">Заказать</button>
+      <button
+        class="item-desc__order"
+        @click="$emit('openModal', item)">
+        Заказать
+      </button>
     </div>
   </div>
 </div>

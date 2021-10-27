@@ -7,6 +7,7 @@
         placeholder="Поиск"
         name="search"
         class="inner__input"
+        v-model="search"
       />
     </form>
   </div>
@@ -14,6 +15,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      search: 'Check',
+    };
+  },
   name: 'Search',
 };
 </script>

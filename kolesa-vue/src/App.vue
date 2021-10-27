@@ -3,14 +3,10 @@
     <header class="header">
       <div class="header-container container">
         <div class="header__wrapper">
-          <img
-            class="header__logo"
-            src="../src/assets/img/logo.svg"
-            alt="kolesa-logo"
-          />
+          <img class="header__logo" src="../src/assets/img/logo.svg" alt="kolesa-logo" />
           <div class="header__inner inner">
             <Search></Search>
-            <User></User>
+            <User :totalScore="score"></User>
           </div>
         </div>
       </div>
@@ -22,21 +18,21 @@
           <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
           <HotButtons></HotButtons>
           <div class="goods-wrapper">
-            <Filters
-              v-model="activeKey"
-              :filters="filters"
-            />
-
-            <GoodsItem
-              :items="filteredItem"
-              @openModal="openModal">
-            </GoodsItem>
+            <Filters v-model="activeKey" :filters="filters" />
+            <GoodsItem :items="filteredItem" @openModal="openCard"> </GoodsItem>
           </div>
         </main>
       </div>
     </div>
     <Footer></Footer>
-    <Modal :is-open="isShowModal" @close ='closeModal'></Modal>
+    <Modal
+      :data="modalData"
+      :is-open="isShowModal"
+      :totalScore="score"
+      @close="closeModal"
+      @order="setScore"
+    >
+    </Modal>
   </div>
 </template>
 
@@ -64,6 +60,9 @@ export default {
   },
   data() {
     return {
+      score: 3945,
+      modalData: {},
+      search: '',
       accessories: [
         {
           id: 7,
@@ -192,9 +191,7 @@ export default {
   },
   computed: {
     allItems() {
-      return [...this.clothes, ...this.accessories].sort(
-        (x, y) => y.isNew - x.isNew,
-      );
+      return [...this.clothes, ...this.accessories].sort((x, y) => y.isNew - x.isNew);
     },
     sortedClothes() {
       return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
@@ -214,11 +211,26 @@ export default {
     },
   },
   methods: {
+    openCard(data) {
+      this.openModal();
+      this.modalData = data;
+    },
     openModal() {
       this.isShowModal = true;
     },
     closeModal() {
       this.isShowModal = false;
+    },
+    setScore(price) {
+      this.closeModal();
+      if (price > this.score) {
+        alert('Не хватает баллов');
+      } else {
+        this.score -= price;
+      }
+    },
+    setSearch(e) {
+      this.search = e.target.value;
     },
   },
 };

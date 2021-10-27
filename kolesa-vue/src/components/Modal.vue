@@ -8,20 +8,20 @@
         <div class="modal__inner">
           <div class="goods-img-section">
             <div class="main-img">
-              <img src="@/assets/img/goods-item.png" alt="Main Image" />
+              <img :src="getImgUrl(data.img)" alt="Main Image" />
             </div>
           </div>
           <div class="goods-information">
             <div class="main-info">
-              <h3 class="goods-title">Футболка "Эволюционируй или Сдохни"</h3>
-              <p class="points">220 баллов</p>
+              <h3 class="goods-title">{{data.title}}</h3>
+              <p class="points">{{data.price}} баллов</p>
               <div class="order">
-                <a class="order__btn" href="#">Заказать</a>
+                <button class="order__btn" @click="order">Заказать</button>
               </div>
               <div class="client-points">
                 <div class="money">
                   <h6>Твой баланс:</h6>
-                  <p>3 945 баллов</p>
+                  <p>{{totalScore}} баллов</p>
                 </div>
                 <div class="money-bag"></div>
               </div>
@@ -134,6 +134,8 @@ export default {
   name: 'Modal',
   props: {
     isOpen: Boolean,
+    data: Object,
+    totalScore: Number,
   },
   data() {
     return {
@@ -143,6 +145,13 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close');
+    },
+    getImgUrl(item) {
+      // eslint-disable-next-line global-require,import/no-dynamic-require,import/extensions
+      return require(`@/assets/img/${item}`);
+    },
+    order() {
+      this.$emit('order', this.data.price);
     },
   },
 };
