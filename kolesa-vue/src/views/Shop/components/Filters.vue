@@ -67,5 +67,5 @@ export default {
       background: $radioChecked;
       color: $black;
     }
-  }
+  };
 </style>
