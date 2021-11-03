@@ -23,6 +23,11 @@ const routes = [
     name: 'Shop',
     component: () => import(/* webpackChunkName: "shop" */ '../views/Shop/Shop.vue'),
   },
+  {
+    path: '/shop/how-to-get-score',
+    name: 'Shop',
+    component: () => import(/* webpackChunkName: "how-to-get-score" */ '../views/Shop/Score.vue'),
+  },
 ];
 
 const router = new VueRouter({

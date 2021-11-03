@@ -11,6 +11,9 @@
       :is-open="isShowModal"
       @close="closeModal"
       @order="setScore"
+      :user="user"
+      :currentColor="selectedColor"
+      :currentSize="selectedSize"
     >
     </Modal>
   </main>
@@ -24,7 +27,11 @@ import Modal from '@/views/Shop/components/Modal.vue';
 import HotButtons from '@/views/Shop/components/HotButtons.vue';
 
 export default {
-  name: 'App',
+  name: 'Shop',
+  props: {
+    user: Object,
+    search: String,
+  },
   components: {
     GoodsItem,
     Filters,
@@ -52,6 +59,8 @@ export default {
           title: 'Аксессуары',
         },
       ],
+      selectedColor: 0,
+      selectedSize: 0,
     };
   },
   computed: {
@@ -88,6 +97,7 @@ export default {
     setScore(price) {
       this.closeModal();
       if (price > this.score) {
+        // eslint-disable-next-line
         alert('Не хватает баллов');
       } else {
         this.score -= price;

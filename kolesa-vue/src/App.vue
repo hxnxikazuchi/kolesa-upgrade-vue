@@ -14,7 +14,12 @@
     <div class="main-aside-wrapper">
       <div class="container main-container">
         <Nav></Nav>
-        <router-view></router-view>
+        <router-view
+          :search="search"
+          :user="user"
+          @setSearch="setSearch"
+          @user="updateUser"
+        ></router-view>
       </div>
     </div>
     <Footer></Footer>
@@ -49,6 +54,7 @@ export default {
     setScore(price) {
       this.closeModal();
       if (price > this.score) {
+        // eslint-disable-next-line
         alert('Не хватает баллов');
       } else {
         this.user -= price;

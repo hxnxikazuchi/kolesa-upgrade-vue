@@ -2,15 +2,17 @@
   <aside class="aside">
     <nav>
       <ul class="nav-list">
-        <li><a href="#">Оргсхема</a></li>
-        <li><a href="#">Kolesa Team</a></li>
-        <li class="active"><a href="#">Kolesa Shop</a></li>
-        <li><a href="#">Картина компании</a></li>
-        <li><a href="#">Новости</a></li>
-        <li><a href="#">Education</a></li>
-        <li><a href="#">Guidelines</a></li>
-        <li><a href="#">Библиотека</a></li>
-        <li><a href="#">FAQ</a></li>
+        <li v-for="(item, index) in routes"
+          :key="index"
+          >
+          <router-link
+            :to="item.link"
+            v-html="item.label"
+            active-class='active'
+            exact
+          >
+          </router-link>
+        </li>
       </ul>
     </nav>
   </aside>
@@ -19,5 +21,47 @@
 <script>
 export default {
   name: 'Nav',
+  data() {
+    return {
+      routes: [
+        {
+          link: '/',
+          label: 'Оргсхема',
+        },
+        {
+          link: '/about',
+          label: 'Kolesa Team',
+        },
+        {
+          link: '/shop',
+          label: 'Kolesa Shop',
+        },
+        {
+          link: '#',
+          label: 'Картина компании',
+        },
+        {
+          link: '#',
+          label: 'Новости',
+        },
+        {
+          link: '#',
+          label: 'Education',
+        },
+        {
+          link: '#',
+          label: 'Guidelines',
+        },
+        {
+          link: '#',
+          label: 'Библиотека',
+        },
+        {
+          link: '#',
+          label: 'FAQ',
+        },
+      ],
+    };
+  },
 };
 </script>
