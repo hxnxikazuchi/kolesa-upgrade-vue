@@ -9,7 +9,7 @@
             :to="item.link"
             v-html="item.label"
             active-class='active'
-            exact
+            :exact="item.isExact"
           >
           </router-link>
         </li>
@@ -27,14 +27,17 @@ export default {
         {
           link: '/',
           label: 'Оргсхема',
+          isExact: true,
         },
         {
           link: '/about',
           label: 'Kolesa Team',
+          isExact: true,
         },
         {
           link: '/shop',
           label: 'Kolesa Shop',
+          isExact: false,
         },
         {
           link: '#',
