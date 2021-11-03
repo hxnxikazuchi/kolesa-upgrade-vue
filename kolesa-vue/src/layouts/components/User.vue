@@ -1,33 +1,33 @@
 <template>
   <a href="#" class="inner__user user">
-    <img :src="user.avatarUrl" :key="user.name" alt="user-photo" class="user__img" />
+    <img :src="userInfo.avatarUrl" alt="user-photo" class="user__img" />
     <div class="user__name-points">
-      <p class="user__name">{{user.name}}</p>
-      <p class="user__point">{{user.score}} баллов</p>
+      <p class="user__name">{{ userInfo.name }}</p>
+      <p class="user__point">{{userInfo.score}} баллов</p>
     </div>
   </a>
 </template>
 
 <script>
-import axios from '@/axios';
+import { mapState } from 'vuex';
 
 export default {
   name: 'User',
-  data() {
-    return {
-      user: {},
-    };
+  computed: {
+    score() {
+      return this.userInfo.score ? `${this.userInfo.score} баллов` : '';
+    },
+    ...mapState({
+      userInfo: 'userInfo',
+    }),
   },
   methods: {
-    getUserInfo() {
-      this.$emit('userInfo', this.user);
+    fetchUser() {
+      this.$store.dispatch('fetchUserInfo');
     },
   },
   mounted() {
-    axios.get('templates/7ZW3y5GAuIge/data')
-      .then((response) => {
-        this.user = response.data;
-      });
+    this.fetchUser();
   },
 };
 </script>

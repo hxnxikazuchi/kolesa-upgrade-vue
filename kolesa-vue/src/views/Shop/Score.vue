@@ -14,7 +14,7 @@
     <div class="goods">
       <div
         class="goods__item score__item"
-        v-for="item in cards" :key="item">
+        v-for="item in cards" :key="item.title">
         <div class="score__img">
           <img src="@/assets/img/score-img1.svg" alt="text" />
         </div>

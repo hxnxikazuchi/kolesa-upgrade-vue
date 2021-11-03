@@ -28,8 +28,7 @@
               <div class="client-points">
                 <div class="money">
                   <h6>Твой баланс:</h6>
-                  <p @click="$emit('pointsChange', user.score)">
-                     баллов</p>
+                  <p>{{ $store.state.userInfo.score }} баллов</p>
                 </div>
                 <div class="money-bag"></div>
               </div>
@@ -100,6 +99,7 @@ export default {
     totalScore: Number,
     currentSize: Number,
     currentColor: Number,
+    user: Object,
   },
   data() {
     return {
@@ -115,7 +115,13 @@ export default {
       return require(`@/assets/img/${item}`);
     },
     order() {
-      this.$emit('order', this.data.score);
+      const { score } = this.$store.state.userInfo;
+
+      if (score - this.data.price <= 0) {
+        alert('недостаточно баллов');
+      }
+
+      this.$store.commit('setNewScore', this.data.price);
     },
   },
 };

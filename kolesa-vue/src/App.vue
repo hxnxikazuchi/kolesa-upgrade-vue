@@ -14,12 +14,7 @@
     <div class="main-aside-wrapper">
       <div class="container main-container">
         <Nav></Nav>
-        <router-view
-          :search="search"
-          :user="user"
-          @setSearch="setSearch"
-          @user="updateUser"
-        ></router-view>
+        <router-view></router-view>
       </div>
     </div>
     <Footer></Footer>
