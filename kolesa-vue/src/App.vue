@@ -3,366 +3,66 @@
     <header class="header">
       <div class="header-container container">
         <div class="header__wrapper">
-          <img
-            class="header__logo"
-            src="../src/assets/img/logo.svg"
-            alt="kolesa-logo"
-          />
+          <img class="header__logo" src="../src/assets/img/logo.svg" alt="kolesa-logo" />
           <div class="header__inner inner">
-            <div class="inner__search">
-              <form class="inner__form" action="#">
-                <button class="inner__btn"></button>
-                <input
-                  type="text"
-                  placeholder="Поиск"
-                  name="search"
-                  class="inner__input"
-                />
-              </form>
-            </div>
-            <a href="#" class="inner__user user">
-              <img
-                src="../src/assets/img/morti.svg"
-                alt="user-photo"
-                class="user__img"
-              />
-              <div class="user__name-points">
-                <p class="user__name">Мортиджан</p>
-                <p class="user__point">300 баллов</p>
-              </div>
-            </a>
+            <Search></Search>
+            <User @getUserInfo="setScore"></User>
           </div>
         </div>
       </div>
     </header>
     <div class="main-aside-wrapper">
       <div class="container main-container">
-        <aside class="aside">
-          <nav>
-            <ul class="nav-list">
-              <li><a href="#">Оргсхема</a></li>
-              <li><a href="#">Kolesa Team</a></li>
-              <li class="active"><a href="#">Kolesa Shop</a></li>
-              <li><a href="#">Картина компании</a></li>
-              <li><a href="#">Новости</a></li>
-              <li><a href="#">Education</a></li>
-              <li><a href="#">Guidelines</a></li>
-              <li><a href="#">Библиотека</a></li>
-              <li><a href="#">FAQ</a></li>
-            </ul>
-          </nav>
-        </aside>
+        <Nav></Nav>
         <main class="main">
           <img class="banner" src="../src/assets/img/banner.png" alt="banner" />
-          <div class="about-points">
-            <a href="#" class="about-points__link about-points--green">
-              <div class="about-points__item">
-                <img src="../src/assets/img/plus.svg" alt="take-points" />
-                Получить баллы
-              </div>
-            </a>
-            <a href="#" class="about-points__link about-points--yellow">
-              <div class="about-points__item">
-                <img
-                  src="../src/assets/img/question.svg"
-                  alt="how-to-get-points"
-                />
-                Как получить баллы
-              </div>
-            </a>
-            <a href="#" class="about-points__link about-points--blue">
-              <div class="about-points__item">
-                <img src="../src/assets/img/present.svg" alt="present-points" />
-                Подарить баллы
-              </div>
-            </a>
-          </div>
+          <HotButtons></HotButtons>
           <div class="goods-wrapper">
-            <div class="radio-buttons">
-              <div class="radio-item">
-                <input
-                  class="js__category-button"
-                  type="radio"
-                  id="item-radio-1"
-                  name="radio-item"
-                  value="Все товары"
-                  data-key="all"
-                  checked
-                  v-model="selected"
-                />
-                <label for="item-radio-1">Все товары</label>
-              </div>
-              <div class="radio-item">
-                <input
-                  class="js__category-button"
-                  type="radio"
-                  id="item-radio-2"
-                  name="radio-item"
-                  value="Одежда"
-                  data-key="clothes"
-                  v-model="selected"
-                />
-                <label for="item-radio-2">Одежда</label>
-              </div>
-              <div class="radio-item">
-                <input
-                  class="js__category-button"
-                  type="radio"
-                  id="item-radio-3"
-                  name="radio-item"
-                  value="Аксессуары"
-                  data-key="accessories"
-                  v-model="selected"
-                />
-                <label for="item-radio-3">Аксессуары</label>
-              </div>
-            </div>
-            <div class="goods" v-if="selected === 'Все товары'">
-              <div class="goods__item" v-for="item in allItems" :key="item">
-                <div class="goods__img-wrap">
-                  <img :src="getImgUrl(item.img)" alt="text" />
-                  <div class="new-cloth" v-if="item.isNew">new</div>
-                </div>
-                <div class="item-desc">
-                  <p class="item-desc__cost">{{ item.price }} баллов</p>
-                  <p class="item-desc__name">
-                    {{ item.title }}
-                  </p>
-                  <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-                  <button class="item-desc__order" @click="openModal">
-                    Заказать
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="goods" v-if="selected === 'Одежда'">
-              <div
-                class="goods__item"
-                v-for="item in sortedClothes"
-                :key="item"
-              >
-                <div class="goods__img-wrap">
-                  <img :src="getImgUrl(item.img)" alt="text" />
-                  <div class="new-cloth" v-if="item.isNew">new</div>
-                </div>
-                <div class="item-desc">
-                  <p class="item-desc__cost">{{ item.price }} баллов</p>
-                  <p class="item-desc__name">
-                    {{ item.title }}
-                  </p>
-                  <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-                  <button class="item-desc__order" @click="openModal">
-                    Заказать
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="goods" v-if="selected === 'Аксессуары'">
-              <div
-                class="goods__item"
-                v-for="item in sortedAccessories"
-                :key="item"
-              >
-                <div class="goods__img-wrap">
-                  <img :src="getImgUrl(item.img)" alt="text" />
-                  <div class="new-cloth" v-if="item.isNew">new</div>
-                </div>
-                <div class="item-desc">
-                  <p class="item-desc__cost">{{ item.price }} баллов</p>
-                  <p class="item-desc__name">
-                    {{ item.title }}
-                  </p>
-                  <p class="item-desc__size" v-if="item.size">Размер S/M/L</p>
-                  <button class="item-desc__order" @click="openModal">
-                    Заказать
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Filters v-model="activeKey" :filters="filters" />
+            <GoodsItem :items="filteredItem" @openModal="openCard"> </GoodsItem>
           </div>
         </main>
       </div>
     </div>
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-wrapper">
-          <div class="social-logo">
-            <div class="footer__logo">© Kolesa Group</div>
-            <ul class="footer__social">
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/insta.svg"
-                    alt="insta"
-                    class="footer__img"
-                /></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/youtube.svg"
-                    alt="youtube"
-                    class="footer__img"
-                /></a>
-              </li>
-              <li>
-                <a href="#"
-                  ><img
-                    src="../src/assets/img/vk.svg"
-                    alt="vk"
-                    class="footer__img"
-                /></a>
-              </li>
-            </ul>
-          </div>
-          <div class="footer-contact-us">
-            <p>
-              Есть идеи что улучшить? <br />
-              Не знаешь, с кем решить проблему?
-            </p>
-            <div class="write-us__btn">
-              <a href="#">Написать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <div class="modal" v-if="isShowModal" >
-      <div class="modal__container">
-        <div class="modal__dialog">
-          <button class="modal__close" @click="closeModal">
-            <img src="../src/assets/img/close-big.svg" alt="close-modal" />
-          </button>
-          <div class="modal__inner">
-            <div class="goods-img-section">
-              <div class="main-img">
-                <img src="../src/assets/img/goods-item.png" alt="Main Image" />
-              </div>
-            </div>
-            <div class="goods-information">
-              <div class="main-info">
-                <h3 class="goods-title">Футболка "Эволюционируй или Сдохни"</h3>
-                <p class="points">220 баллов</p>
-                <div class="order">
-                  <a class="order__btn" href="#">Заказать</a>
-                </div>
-                <div class="client-points">
-                  <div class="money">
-                    <h6>Твой баланс:</h6>
-                    <p>3 945 баллов</p>
-                  </div>
-                  <div class="money-bag"></div>
-                </div>
-              </div>
-              <div class="additional-info">
-                <section class="inner-info">
-                  <h5 class="radio-info">Цвета:</h5>
-                  <div class="radio-wrapper">
-                    <div class="color-container">
-                      <input
-                        id="radio-color-1"
-                        type="radio"
-                        name="radio-color"
-                        value="Синий"
-                        checked
-                      />
-                      <label for="radio-color-1">
-                        <div class="color color__blue"></div>
-                        Синий</label
-                      >
-                    </div>
-
-                    <div class="color-container">
-                      <input
-                        id="radio-color-2"
-                        type="radio"
-                        name="radio-color"
-                        value="Бежевый"
-                        checked
-                      />
-                      <label for="radio-color-2"
-                        ><div class="color color__whitish"></div>
-                        Бежевый</label
-                      >
-                    </div>
-                    <div class="color-container">
-                      <input
-                        id="radio-color-3"
-                        type="radio"
-                        name="radio-color"
-                        value="Серый"
-                        checked
-                      />
-                      <label for="radio-color-3"
-                        ><div class="color color__grey"></div>
-                        Серый</label
-                      >
-                    </div>
-                  </div>
-                </section>
-                <section class="inner-info">
-                  <h5 class="radio-info">Размер:</h5>
-                  <div class="radio-wrapper">
-                    <div class="size-container">
-                      <input
-                        id="radio-size-1"
-                        type="radio"
-                        name="radio-size"
-                        value="S"
-                        checked
-                      />
-                      <label for="radio-size-1">S</label>
-                    </div>
-
-                    <div class="size-container">
-                      <input
-                        id="radio-size-2"
-                        type="radio"
-                        name="radio-size"
-                        value="M"
-                      />
-                      <label for="radio-size-2">M</label>
-                    </div>
-
-                    <div class="size-container">
-                      <input
-                        id="radio-size-3"
-                        type="radio"
-                        name="radio-size"
-                        value="L"
-                      />
-                      <label for="radio-size-3">L</label>
-                    </div>
-                  </div>
-                </section>
-                <section class="inner-info">
-                  <h5 class="non-radio-info">Детали:</h5>
-                  <div class="details-info">
-                    Брендированная толстовка от Qazaq Republic. Материал: Хлопок
-                    80%, Вискоза 20%
-                  </div>
-                </section>
-                <section class="inner-info">
-                  <h5 class="non-radio-info">Как выбрать размер:</h5>
-                  <div class="details-info">
-                    Написать дяде Рику для уточнения.
-                  </div>
-                </section>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="overlay" @click="closeModal"></div>
-    </div>
+    <Footer></Footer>
+    <Modal
+      :data="modalData"
+      :is-open="isShowModal"
+      @close="closeModal"
+      @order="setScore"
+    >
+    </Modal>
   </div>
 </template>
 
 <script>
+import axios from './axios';
+
+import Modal from './components/Modal.vue';
+import Search from './components/Search.vue';
+import User from './components/User.vue';
+import Nav from './components/Nav.vue';
+import HotButtons from './components/HotButtons.vue';
+import Filters from './components/Filters.vue';
+import GoodsItem from './components/GoodsItem.vue';
+import Footer from './components/Footer.vue';
+
 export default {
   name: 'App',
+  components: {
+    Modal,
+    Search,
+    User,
+    Nav,
+    HotButtons,
+    Filters,
+    GoodsItem,
+    Footer,
+  },
   data() {
     return {
+      modalData: {},
+      search: '',
       accessories: [
         {
           id: 7,
@@ -471,15 +171,32 @@ export default {
           size: true,
         },
       ],
-      selected: 'Все товары',
+      activeKey: 'all',
       isShowModal: false,
+      filters: [
+        {
+          id: 'all',
+          title: 'Все товары',
+        },
+        {
+          id: 'clothes',
+          title: 'Одежда',
+        },
+        {
+          id: 'acsessories',
+          title: 'Аксессуары',
+        },
+      ],
+      user: {
+        name: '',
+        score: 0,
+        avatarUrl: '',
+      },
     };
   },
   computed: {
     allItems() {
-      return [...this.clothes, ...this.accessories].sort(
-        (x, y) => y.isNew - x.isNew,
-      );
+      return [...this.clothes, ...this.accessories].sort((x, y) => y.isNew - x.isNew);
     },
     sortedClothes() {
       return [...this.clothes].sort((x, y) => y.isNew - x.isNew);
@@ -487,11 +204,21 @@ export default {
     sortedAccessories() {
       return [...this.accessories].sort((x, y) => y.isNew - x.isNew);
     },
+    filteredItem() {
+      if (this.activeKey === 'clothes') {
+        return this.sortedClothes;
+      }
+
+      if (this.activeKey === 'acsessories') {
+        return this.sortedAccessories;
+      }
+      return this.allItems;
+    },
   },
   methods: {
-    getImgUrl(item) {
-      // eslint-disable-next-line global-require,import/no-dynamic-require,import/extensions
-      return require(`./assets/img/${item}`);
+    openCard(data) {
+      this.openModal();
+      this.modalData = data;
     },
     openModal() {
       this.isShowModal = true;
@@ -499,6 +226,29 @@ export default {
     closeModal() {
       this.isShowModal = false;
     },
+    setScore(price) {
+      this.closeModal();
+      if (price > this.score) {
+        alert('Не хватает баллов');
+      } else {
+        this.score -= price;
+      }
+    },
+    setSearch(e) {
+      this.search = e.target.value;
+    },
+  },
+  mounted() {
+    axios.get('templates/-_RLsEGjof6i/data')
+      .then((response) => {
+        console.log(response.data);
+        this.clothes = response.data;
+      });
+    axios.get('templates/q3OPxRyEcPvP/data')
+      .then((response) => {
+        console.log(response.data);
+        this.accessories = response.data;
+      });
   },
 };
 </script>
