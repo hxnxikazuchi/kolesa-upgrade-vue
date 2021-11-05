@@ -6,7 +6,10 @@
         Получить баллы
       </div>
     </a>
-    <a href="#" class="about-points__link about-points--yellow">
+    <a href="#"
+      class="about-points__link about-points--yellow"
+      @click.prevent="goToPage"
+      >
       <div class="about-points__item">
         <img src="@/assets/img/question.svg" alt="how-to-get-points" />
         Как получить баллы
@@ -24,5 +27,10 @@
 <script>
 export default {
   name: 'HotButtons',
+  methods: {
+    goToPage() {
+      this.$router.push('/shop/how-to-get-score');
+    },
+  },
 };
 </script>

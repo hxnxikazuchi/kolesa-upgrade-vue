@@ -28,7 +28,7 @@
               <div class="client-points">
                 <div class="money">
                   <h6>Твой баланс:</h6>
-                  <p>{{totalScore}} баллов</p>
+                  <p>{{ $store.state.userInfo.score }} баллов</p>
                 </div>
                 <div class="money-bag"></div>
               </div>
@@ -37,15 +37,17 @@
               <section class="inner-info" v-if="data.colors">
                 <h5 class="radio-info">Цвета:</h5>
                 <div class="radio-wrapper">
-                  <div class="color-container" v-for="color in data.colors" :key="color.id">
+                  <div class="color-container"
+                    v-for="(color, index) in data.colors"
+                    :key="color.id">
                     <input
                       :id="data.id"
                       type="radio"
                       name="radio-color"
                       value="Синий"
-                      :checked="data.id === currentColor"
+                      :checked="currentColor === index"
                     />
-                    <label for="radio-color-1">
+                    <label :for="data.id">
                       <div class="color" :style="{background: color.color}"></div>
                       {{color.label}}</label
                     >
@@ -55,15 +57,15 @@
               <section class="inner-info" v-if="data.sizes != 0">
                 <h5 class="radio-info">Размер:</h5>
                 <div class="radio-wrapper">
-                  <div class="size-container" v-for="size in data.sizes" :key="size.id">
+                  <div class="size-container" v-for="(size, index) in data.sizes" :key="size.id">
                     <input
-                      :id="data.id"
+                      :id="size.id"
                       type="radio"
                       name="radio-size"
-                      :value="data.id"
-                      :checked="data.id === currentSize"
+                      :value="size.id"
+                      :checked="currentSize === index"
                     />
-                    <label for="radio-size-1">{{size}}</label>
+                    <label :for="size.id">{{size}}</label>
                   </div>
                 </div>
               </section>
@@ -95,8 +97,9 @@ export default {
     isOpen: Boolean,
     data: Object,
     totalScore: Number,
-    currentColor: String,
-    currentSize: String,
+    currentSize: Number,
+    currentColor: Number,
+    user: Object,
   },
   data() {
     return {
@@ -112,7 +115,13 @@ export default {
       return require(`@/assets/img/${item}`);
     },
     order() {
-      this.$emit('order', this.data.score);
+      const { score } = this.$store.state.userInfo;
+
+      if (score - this.data.price <= 0) {
+        alert('недостаточно баллов');
+      }
+
+      this.$store.commit('setNewScore', this.data.price);
     },
   },
 };

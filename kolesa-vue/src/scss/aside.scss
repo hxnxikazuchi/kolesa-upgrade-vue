@@ -31,19 +31,17 @@ ul {
         width: 100%;
     }
 
-    li.active {
+    
+
+    a.active {
         position: relative;
-
-        a {
-            font-weight: 600;
-        }
-
+        font-weight: 600;
         a::after {
             display: none;
         }
     }
 
-    li.active::before {
+    a.active::before {
         content: '';
         position: absolute;
         left: -12px;
